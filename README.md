@@ -1,7 +1,3 @@
-# horus
-
-
-<b>.</b>
 
 # Project Demo
 
