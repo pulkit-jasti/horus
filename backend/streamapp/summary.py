@@ -10,7 +10,7 @@ tokenizer = WordPunctTokenizer()
 from nltk.corpus import stopwords
 from itertools import islice
 import collections
-def summary():
+def summary(inpu):
     vocab=[]
 
     def get_count(text):
@@ -123,4 +123,4 @@ def summary():
     # Playing the converted file
     os.system("au.mp3")
 
-summary()
+summary("The history of the Nashville Sounds, a Minor League Baseball team, began in Nashville, Tennessee, in 1978, after Larry Schmittou and a group of American investors purchased the rights to operate an expansion franchise of the Double-A level Southern League. Home games were played at Herschel Greer Stadium from its opening in 1978 until the end of 2014. In 2015, they moved to the new First Horizon Park (pictured) on the site of the former Sulphur Dell ballpark. They won the league's championship in 1979 as an affiliate of the Cincinnati Reds and in 1982 as an affiliate of the New York Yankees. Before the 1985 season, the owners bought the Evansville Triplets, a Triple-A team, and relocated them to Nashville as the Triple-A Sounds. They joined the Triple-A Pacific Coast League in 1998 and won its championshi")

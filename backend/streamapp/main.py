@@ -1,6 +1,19 @@
 from flask import Flask, render_template, Response
 from camera import VideoCamera
 import json
+import nltk
+nltk.download("stopwords")
+nltk.download('punkt')
+from math import log
+from nltk.tokenize import sent_tokenize
+# from nltk.tokenize import PunktWordTokenizer
+# tokenizer=PunktWordTokenizer()
+from nltk.tokenize import WordPunctTokenizer   
+tokenizer = WordPunctTokenizer() 
+from nltk.corpus import stopwords
+from itertools import islice
+import collections
+
 from collections import Counter
 from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS, cross_origin
@@ -173,25 +186,24 @@ def output(inp):
             return  jwt_token.decode('UTF-8') 
 
         meetingdetails = {"topic": "Stand Up Call",
-                        "type": 2,
-                        "start_time": "2022-04-14T10: 21: 57",
-                        "duration": "45",
-                        "timezone": "Europe/Madrid",
-                        "agenda": "test",
+                       "type": 2,
+				"start_time": "2019-06-14T10: 21: 57",
+				"duration": "45",
+				"timezone": "Europe/Madrid",
+				"agenda": "test",
 
-                        "recurrence": {"type": 1,
-                                        "repeat_interval": 1
-                                        },
-                        "settings": {"host_video": "true",
-                                    "participant_video": "true",
-                                    "join_before_host": "False",
-                                    "mute_upon_entry": "False",
-                                    "watermark": "true",
-                                    "audio": "voip",
-                                    "auto_recording": "cloud"
-                                    }
-                        }
-
+				"recurrence": {"type": 1,
+								"repeat_interval": 1
+								},
+				"settings": {"host_video": "true",
+							"participant_video": "true",
+							"join_before_host": "False",
+							"mute_upon_entry": "False",
+							"watermark": "true",
+							"audio": "voip",
+							"auto_recording": "cloud"
+							}
+				}
 
 
         def createMeeting():
@@ -225,6 +237,7 @@ def output(inp):
 @app.route("/summary/<inpu>", methods = ["GET"])
 @cross_origin()
 def summary(inpu):
+    
     vocab=[]
 
     def get_count(text):
@@ -333,6 +346,9 @@ def summary(inpu):
     # Saving the converted audio in a mp3 file named
     # welcome
     myobj.save("au.mp3")
+
+    # Playing the converted file
+    os.system("au.mp3")
     return {"summary":summary,"audio":"au.mp3"}
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, threaded=True, use_reloader=False)
