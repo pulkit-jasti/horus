@@ -61,18 +61,15 @@ Modules and libraries used: Tensorflow 2.0, OpenCV, Dlib(deeplibrary)
  
 
 # Overview of Website:
-
-<img src="snapshots/1d.JPG">
-<img src="snapshots/2d.JPG">
-<img src="snapshots/8d.JPG">
-
- 
-<img src="snapshots/8d.JPG">
-
-# Recordings and Transcripts:
-
-
-
+       
+<img src="snaps/1.png">
+<img src="snaps/2.png">
+<img src="snaps/3.png">
+<img src="snaps/4.png">
+<img src="snaps/5.png">
+<img src="snaps/6.png">
+<img src="snaps/7.png">
+<img src="snaps/8.png">
 
 
 
