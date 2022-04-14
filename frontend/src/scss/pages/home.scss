@@ -100,6 +100,97 @@
       }
     }
   }
+
+  &.chat {
+    .modal-content {
+      .modal-body {
+        padding: 30px 20px 20px 20px;
+      }
+    }
+    .chat-box {
+      margin-top: 10px;
+      width: 600px;
+      height: 480px;
+      // background-color: lightblue;
+
+      .message-container {
+        height: calc(100% - 80px);
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        padding: 20px;
+        overflow-y: scroll;
+
+        .message {
+          margin-bottom: 25px;
+          width: 100%;
+          // background-color: lightblue;
+          display: flex;
+
+          .content {
+            width: fit-content;
+            padding: 7px 15px;
+            border-radius: 5px;
+
+            p {
+              width: fit-content;
+              text-align: left;
+            }
+
+            p:nth-child(2) {
+              padding: 10px 0;
+              font-weight: 600;
+              a {
+                font-weight: 400;
+              }
+            }
+
+            p:last-child {
+              span {
+                font-weight: 600;
+              }
+            }
+          }
+
+          &.left {
+            width: 80%;
+            .content {
+              background-color: #e1e1e1;
+            }
+          }
+
+          &.right {
+            justify-content: end;
+            .content {
+              background-color: #0077ff;
+              p {
+                color: #fff;
+              }
+            }
+          }
+
+          &:last-child {
+            margin: 0;
+          }
+        }
+      }
+
+      .input-container {
+        margin-top: 20px;
+        height: 40px;
+        width: 100%;
+
+        display: flex;
+
+        input {
+          height: 100%;
+          width: 100%;
+          margin: 0;
+          margin-right: 15px;
+          padding: 0 10px;
+        }
+      }
+    }
+  }
 }
 
 .home-page {

@@ -20,6 +20,7 @@ import statis from "../assets/img/statis.png";
 import database from "../assets/img/database.png";
 import close from "../assets/img/close.png";
 import gintoki from "../assets/img/gintoki.png";
+import message from "../assets/img/message.png";
 
 import { Modal, ModalBody, Button } from "reactstrap";
 import sampleData from "../test";
@@ -39,6 +40,8 @@ class Home extends Component {
       SleepModal: false,
       PostureModal: false,
       StressModal: false,
+      ChatModal: false,
+      chatInput: "",
       studentList: [
         { firstName: "Anakin", lastName: "Skywalker" },
         { firstName: "Obi Wan", lastName: "Kenobi" },
@@ -52,6 +55,13 @@ class Home extends Component {
         { firstName: "Din", lastName: "Djarin" },
         { firstName: "Leia", lastName: "Organa" },
       ],
+      chatMessagesList: [
+        {
+          message: "Hi! what can I do for you today",
+          dir: "left",
+          type: "text",
+        },
+      ],
     };
 
     this.toggleWaterModal = this.toggleWaterModal.bind(this);
@@ -63,6 +73,9 @@ class Home extends Component {
     this.togglePostureModal = this.togglePostureModal.bind(this);
     this.toggleStressModal = this.toggleStressModal.bind(this);
     this.getUserData = this.getUserData.bind(this);
+    this.toggleChatModal = this.toggleChatModal.bind(this);
+    this.handleChatInput = this.handleChatInput.bind(this);
+    this.handleChatSubmit = this.handleChatSubmit.bind(this);
   }
 
   toggleWaterModal() {
@@ -97,12 +110,69 @@ class Home extends Component {
     this.setState((prevState) => ({ StressModal: !prevState.StressModal }));
   }
 
+  toggleChatModal() {
+    this.setState((prevState) => ({ ChatModal: !prevState.ChatModal }));
+  }
+
+  handleChatInput(event) {
+    this.setState({ chatInput: event.target.value });
+  }
+
+  handleChatSubmit(event) {
+    event.preventDefault();
+    console.log("hkbhbhk", this.state.chatInput);
+
+    this.setState((prevState) => ({
+      chatMessagesList: [
+        ...prevState.chatMessagesList,
+        {
+          message: this.state.chatInput,
+          dir: "right",
+          type: "text",
+        },
+      ],
+      chatInput: "",
+    }));
+
+    axios
+      .get(`http://localhost:5000/${this.state.chatInput}`)
+      .then((res) => {
+        console.log("chat result", res.data);
+
+        if (typeof res.data === "string") {
+          this.setState((prevState) => ({
+            chatMessagesList: [
+              ...prevState.chatMessagesList,
+              {
+                message: res.data,
+                dir: "left",
+                type: "text",
+              },
+            ],
+          }));
+        } else {
+          this.setState((prevState) => ({
+            chatMessagesList: [
+              ...prevState.chatMessagesList,
+              {
+                message: res.data,
+                dir: "left",
+                type: "obj",
+              },
+            ],
+          }));
+        }
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+  }
+
   componentDidMount() {
     axios
       .get(`http://192.168.10.150:5000/login/yuvaraj/raju1234`)
       .then((res) => {
-        console.log("User ID isssss", res.data);
-        // this.props.updateUserData(res.data);
+        // console.log("User ID isssss", res.data);
         this.getUserData(res.data);
       })
       .catch((err) => {
@@ -114,7 +184,6 @@ class Home extends Component {
     axios
       .get(`http://192.168.10.150:5000/res/${userID}`)
       .then((res) => {
-        console.log("User Data", res.data);
         this.setState({ userData: res.data });
       })
       .catch((err) => {
@@ -123,9 +192,6 @@ class Home extends Component {
   }
 
   render() {
-    {
-      console.log("parent data", this.props.userData);
-    }
     return (
       <div className="home-page">
         <div className="left">
@@ -134,7 +200,7 @@ class Home extends Component {
               <div className="logo">F.</div>
               <div className="icons-list">
                 <img src={home} alt="" />
-                <img src={cap} alt="" />
+                <img onClick={this.toggleChatModal} src={message} alt="" />
                 <img src={user} alt="" />
                 <img src={settings} alt="" />
               </div>
@@ -399,6 +465,59 @@ class Home extends Component {
               <button>Contact Spouse</button>
               <button>Contact HR</button>
               <button>Emergency</button>
+            </div>
+          </ModalBody>
+        </Modal>
+
+        <Modal
+          centered
+          size="lg"
+          className=" chat all-modal"
+          toggle={this.toggleChatModal}
+          isOpen={this.state.ChatModal}
+        >
+          <ModalBody>
+            <img src={close} alt="" onClick={this.toggleChatModal} />
+            <h3>Virtual Assisstant</h3>
+            <div className="chat-box">
+              <div className="message-container">
+                {/* <div className="message left">
+                  <p>Hi! what can I do for you today</p>
+                </div>
+                <div className="message right">
+                  <p>Kill yourself</p>
+                </div> */}
+
+                {this.state.chatMessagesList.map((el, id) => {
+                  if (el.type === "text") {
+                    return (
+                      <div className={`message ${el.dir}`} key={id}>
+                        <div className="content">
+                          <p>{el.message}</p>
+                        </div>
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div className={`message ${el.dir}`} key={id}>
+                        <div className="content">
+                          <p>Your meeting has been scheduled! Here's the details</p>
+                          <p>
+                            Link: <a href={el.message.link}>{el.message.link}</a>
+                          </p>
+                          <p>
+                            <span>Password:</span> {el.message.pass}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  }
+                })}
+              </div>
+              <form className="input-container" onSubmit={this.handleChatSubmit}>
+                <input type="text" onChange={this.handleChatInput} value={this.state.chatInput} name="" id="" />
+                <button type="submit">Send</button>
+              </form>
             </div>
           </ModalBody>
         </Modal>
