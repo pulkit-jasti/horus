@@ -69,7 +69,7 @@ Modules and libraries used: Tensorflow 2.0, OpenCV, Dlib(deeplibrary)
 <img src="snaps/5.png">
 <img src="snaps/6.png">
 <img src="snaps/7.png">
-<img src="snaps/8.png">
+ 
 
 
 
