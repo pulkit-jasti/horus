@@ -7,13 +7,13 @@ import cap from "../assets/img/cap.png";
 import user from "../assets/img/user.png";
 import settings from "../assets/img/settings.png";
 import logout from "../assets/img/logout.png";
-import atom from "../assets/img/atom.png";
-import stopwatch from "../assets/img/stopwatch.png";
-import gintoki from "../assets/img/gintoki.png";
 import close from "../assets/img/close.png";
+import github from "../assets/img/github.png";
+import jira from "../assets/img/jira.png";
 
 import { Chart as ChartJS, ArcElement, Tooltip, CategoryScale, LinearScale, BarElement } from "chart.js";
 import { Doughnut, Bar } from "react-chartjs-2";
+import axios from "axios";
 // import faker from "faker";
 ChartJS.register(ArcElement, Tooltip, CategoryScale, LinearScale, BarElement);
 
@@ -22,6 +22,7 @@ class TeacherDashboard extends Component {
     super(props);
     this.state = {
       reportModal: false,
+      employeesData: [],
       douChartData: {
         labels: ["Angry", "Happy", "Sad", "Neutral", "Scared"],
         datasets: [
@@ -85,6 +86,19 @@ class TeacherDashboard extends Component {
     this.setState((prevState) => ({ reportModal: !prevState.reportModal }));
   }
 
+  componentDidMount() {
+    axios
+      .get("http://localhost:5000/hr")
+      .then((res) => {
+        // console.log("HR response", res.data);
+        let data = Object.values(res.data);
+        this.setState({ employeesData: data });
+      })
+      .catch((err) => {
+        console.warn("Error: ", err);
+      });
+  }
+
   render() {
     return (
       <>
@@ -97,7 +111,6 @@ class TeacherDashboard extends Component {
             isOpen={this.state.reportModal}
           >
             <ModalBody>
-              {/* <img src={gintoki} alt="" /> */}
               <img src={close} alt="" onClick={this.toggleReportModal} />
               <h3>Student Report</h3>
               <div className="chart-container">
@@ -153,22 +166,30 @@ class TeacherDashboard extends Component {
             </div>
 
             <div className="bottom-container">
-              {this.state.studentList.map((el) => {
+              {this.state.employeesData.map((el, id) => {
                 return (
-                  <div className="student-card">
-                    <img src={`https://ui-avatars.com/api/?name=${el.firstName}+${el.lastName}`} alt="" />
-                    <h3>{`${el.firstName} ${el.lastName}`}</h3>
-                    <h5>{Math.floor(Math.random() * (50000 - 45000 + 1)) + 45000}</h5>
+                  <div className="student-card" key={id}>
+                    <img src={`https://ui-avatars.com/api/?name=${el.name}`} alt="" />
+                    <h3>{el.name}</h3>
+                    <div className="link-container">
+                      <a href={`https://github.com/${el.github_id}`} target="_blank">
+                        <img src={github} alt="" />
+                      </a>
+                      <a href={`https://github.com/${el.jira}`}>
+                        <img src={jira} alt="" />
+                      </a>
+                    </div>
 
                     <div className="info-container">
                       <div className="info-box">
-                        <p className="info">{Math.floor(Math.random() * (100 - 50 + 1)) + 50}</p>
+                        {/* <p className="info">{ Math.floor(Math.random() * (100 - 50 + 1)) + 50 }</p> */}
+                        <p className="info">{100 - parseInt(el.prod_score)}</p>
                         <p className="tag">
                           Productivity <br /> Score
                         </p>
                       </div>
                       <div className="info-box">
-                        <p className="info">{Math.floor(Math.random() * (100 - 50 + 1)) + 50}</p>
+                        <p className="info">{100 - parseInt(el.mentalhealth_score)}</p>
                         <p className="tag">
                           Mental <br /> Health
                         </p>
