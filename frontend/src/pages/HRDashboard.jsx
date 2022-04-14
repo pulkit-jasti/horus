@@ -17,7 +17,7 @@ import axios from "axios";
 // import faker from "faker";
 ChartJS.register(ArcElement, Tooltip, CategoryScale, LinearScale, BarElement);
 
-class TeacherDashboard extends Component {
+class HRDashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -112,7 +112,7 @@ class TeacherDashboard extends Component {
           >
             <ModalBody>
               <img src={close} alt="" onClick={this.toggleReportModal} />
-              <h3>Student Report</h3>
+              <h3>Employee Report</h3>
               <div className="chart-container">
                 <div className="chart-wrapper">
                   <Doughnut
@@ -208,4 +208,4 @@ class TeacherDashboard extends Component {
   }
 }
 
-export default TeacherDashboard;
+export default HRDashboard;

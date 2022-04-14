@@ -9,7 +9,7 @@ import settings from "../assets/img/settings.png";
 import logout from "../assets/img/logout.png";
 import atom from "../assets/img/atom.png";
 import stopwatch from "../assets/img/stopwatch.png";
-import gintoki from "../assets/img/gintoki.png";
+import people from "../assets/img/people.png";
 import closeWhite from "../assets/img/closeWhite.png";
 
 // MEETING CONTROL IMAGES
@@ -118,11 +118,7 @@ class MeetingRoom extends Component {
             </div>
 
             <div className="top-bar">
-              <h3>Lecture - 3 </h3>
-              <div className="exam-info">
-                <img src={atom} alt="" />
-                <h3>Physics</h3>
-              </div>
+              <h3>Meeting 3 </h3>
               <div className="time-left">
                 <img src={stopwatch} alt="" />
                 <h3>&nbsp; 1h 29m</h3>
@@ -133,10 +129,7 @@ class MeetingRoom extends Component {
               <div className="left">
                 <div className="meeting-window card">
                   {/* <video src={daoko}></video> */}
-                  <img
-                    src="https://www.slideteam.net/media/catalog/product/cache/1280x720/p/r/projectile_motion_parabolic_with_basket_ball_slide01.jpg"
-                    alt=""
-                  />
+                  <img style={{ marginLeft: "130px" }} src={people} alt="" />
 
                   <div className="controls-trigger">
                     <div className="controls-box">
@@ -163,7 +156,7 @@ class MeetingRoom extends Component {
                       <div className="control-wrapper">
                         <img src={expand} alt="" />
                       </div>
-                      <Link to="/">
+                      <Link to="/meeting-summary">
                         <div className="control-wrapper">
                           <img src={exit} alt="" />
                         </div>

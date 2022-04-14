@@ -21,6 +21,7 @@ import database from "../assets/img/database.png";
 import close from "../assets/img/close.png";
 import gintoki from "../assets/img/gintoki.png";
 import message from "../assets/img/message.png";
+import meeting from "../assets/img/meeting.png";
 
 import { Modal, ModalBody, Button } from "reactstrap";
 import sampleData from "../test";
@@ -201,7 +202,9 @@ class Home extends Component {
               <div className="icons-list">
                 <img src={home} alt="" />
                 <img onClick={this.toggleChatModal} src={message} alt="" />
-                <img src={user} alt="" />
+                <Link to={"/meeting"}>
+                  <img src={meeting} alt="" />
+                </Link>
                 <img src={settings} alt="" />
               </div>
             </div>
@@ -352,14 +355,14 @@ class Home extends Component {
         </div>
 
         <div className="modal-buttons card">
-          <button onClick={this.toggleWaterModal}>Water</button>
+          <button onClick={this.toggleStressModal}>Stressed</button>
           <button onClick={this.toggleLookAwayModal}>Look away</button>
+          <button onClick={this.toggleWaterModal}>Water</button>
           <button onClick={this.toggleExerciseModal}>Exercise</button>
           <button onClick={this.toggleLunchModal}>Lunch</button>
-          <button onClick={this.toggleRewardModal}>Reward</button>
           <button onClick={this.toggleSleepModal}>Sleep time</button>
+          <button onClick={this.toggleRewardModal}>Reward</button>
           <button onClick={this.togglePostureModal}>Posture correction</button>
-          <button onClick={this.toggleStressModal}>Stressed</button>
         </div>
 
         {/* <div className="right">
@@ -450,7 +453,7 @@ class Home extends Component {
             {/* <img src={close} alt="" onClick={this.togglePostureModal} /> */}
             <h3>Please correct your posture</h3>
             <p>You have a bad posture, correct it to avoid body pains</p>
-            <img src={gintoki} alt="" />
+            <img src="http://localhost:5000/video_feed" alt="" />
           </ModalBody>
         </Modal>
 

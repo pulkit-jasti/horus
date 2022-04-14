@@ -8,6 +8,7 @@ import HRDashboard from "./pages/HRDashboard";
 import TherapistRoom from "./pages/TherapistRoom";
 import Login from "./pages/Login";
 import sampleData from "./test";
+import MeetingSummary from "./pages/MeetingSummary";
 
 const userData = {
   username: "",
@@ -46,7 +47,8 @@ class App extends Component {
             path="/home"
             element={<Home userData={{ username: this.state.username, password: this.state.password }} />}
           />
-          <Route path="/class" element={<MeetingRoom />} />
+          <Route path="/meeting" element={<MeetingRoom />} />
+          <Route path="/meeting-summary" element={<MeetingSummary />} />
           <Route path="/HRdashboard" element={<HRDashboard />} />
           <Route path="/therapist-dashboard" element={<TherapistRoom />} />
         </Routes>

@@ -14,6 +14,28 @@
   }
 }
 
+.summary-container {
+  textarea {
+    width: 900px;
+    height: 450px;
+  }
+
+  .summary-wrapper {
+    width: 850px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+  }
+
+  .bottom-container {
+    flex-direction: column;
+    align-items: flex-start;
+
+    button {
+      margin-top: 20px;
+    }
+  }
+}
+
 .exam-main {
   height: 100vh;
   display: flex;
