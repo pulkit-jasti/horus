@@ -269,6 +269,7 @@ def summary(inpu):
     def score_sentences(sentences,tfidf_values):
         tfidf_scores_sentences={}
         # print(tfidf_values)
+        tokenizer = WordPunctTokenizer() 
         for line in sentences:
             tfidf_scores_sentences[line]=0.0
             tokens=tokenizer.tokenize(line)
@@ -293,6 +294,14 @@ def summary(inpu):
         tfidf_values={}
         # sents=[]
 
+        from nltk.tokenize import sent_tokenize
+        # from nltk.tokenize import PunktWordTokenizer
+        # tokenizer=PunktWordTokenizer()
+        from nltk.tokenize import WordPunctTokenizer   
+        tokenizer = WordPunctTokenizer() 
+        from nltk.corpus import stopwords
+        from itertools import islice
+        import collections
         for line in sentences:
             string=""
             tokens=tokenizer.tokenize(line)
