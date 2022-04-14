@@ -22,6 +22,8 @@ import close from "../assets/img/close.png";
 import gintoki from "../assets/img/gintoki.png";
 
 import { Modal, ModalBody, Button } from "reactstrap";
+import sampleData from "../test";
+import axios from "axios";
 
 class Home extends Component {
   constructor(props) {
@@ -60,6 +62,7 @@ class Home extends Component {
     this.toggleSleepModal = this.toggleSleepModal.bind(this);
     this.togglePostureModal = this.togglePostureModal.bind(this);
     this.toggleStressModal = this.toggleStressModal.bind(this);
+    this.getUserData = this.getUserData.bind(this);
   }
 
   toggleWaterModal() {
@@ -94,7 +97,35 @@ class Home extends Component {
     this.setState((prevState) => ({ StressModal: !prevState.StressModal }));
   }
 
+  componentDidMount() {
+    axios
+      .get(`http://192.168.10.150:5000/login/yuvaraj/raju1234`)
+      .then((res) => {
+        console.log("User ID isssss", res.data);
+        // this.props.updateUserData(res.data);
+        this.getUserData(res.data);
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+  }
+
+  getUserData(userID) {
+    axios
+      .get(`http://192.168.10.150:5000/res/${userID}`)
+      .then((res) => {
+        console.log("User Data", res.data);
+        this.setState({ userData: res.data });
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+  }
+
   render() {
+    {
+      console.log("parent data", this.props.userData);
+    }
     return (
       <div className="home-page">
         <div className="left">
